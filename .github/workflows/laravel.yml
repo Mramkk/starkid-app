@@ -1,18 +1,20 @@
-name: CI -> Deploy to My website
 on:
   push:
     branches: [ master, Development ]
+name: 🚀 Laravel
 jobs:
-  build:
+  web-deploy:
+
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      # Here is the deployment action
-      - name: Upload from public_html via FTP
-        uses: airvzxf/ftp-deployment-action@latest
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2.3.2
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          remote_dir : "/home4/ramkumar/public_html/mram"
-          delete: "false"
+          server-dir: /home4/ramkumar/public_html/mram/
