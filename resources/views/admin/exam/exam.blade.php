@@ -57,7 +57,6 @@
                     </div>
 
                 </div><!-- End Card -->
-                {{-- kk --}}
             @endforeach
         @endif
 
