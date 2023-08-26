@@ -29,7 +29,15 @@
                             <select class="form-select" name="type">
                                 <option selected value="Exam">Exam</option>
                                 <option value="Vedic Math">Vedic Math</option>
-                                <option value="Test">Test</option>
+                                <option value="Practice Exam">Practice Exam</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Question Type</label>
+                            <select class="form-select" name="question_type">
+                                <option selected value="General">General</option>
+                                <option value="Multi Choice"> Multi Choice</option>
+
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">

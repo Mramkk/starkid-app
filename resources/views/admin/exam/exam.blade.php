@@ -45,8 +45,8 @@
                             <p class="fw-bold">({{ $item->class }})</p>
                             <div class="d-flex justify-content-center mt-1">
                                 <a href="{{ url('admin/exam/view') . '/' . $item->id }}" class="btn btn-link">View</a>
-                                <a href="{{ url('admin/exam/edit') . '/' . $item->id }}"
-                                    class="btn btn-link text-success">Edit</a>
+                                {{-- <a href="{{ url('admin/exam/edit') . '/' . $item->id }}"
+                                    class="btn btn-link text-success">Edit</a> --}}
                                 <a href="{{ url('admin/exam') . '/' . $item->id . '/' . 'question' }}"
                                     class="btn btn-link text-dark">Add
                                     Questions</a>
