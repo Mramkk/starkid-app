@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin\exam;
 use App\Helper\ResMsg;
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
+use App\Models\Mquestion;
+use App\Models\multiChoiceQues;
+use App\Models\Queset;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,24 +42,48 @@ class AdminExamController extends Controller
     public function view(Request $req)
     {
         $exam = Exam::Where('id', $req->id)->first();
-        $ques = Question::Where('exid', $exam->id)->with('qset')->get();
 
-        return view('admin.exam.view', compact('exam', 'ques'));
+        if ($exam->question_type == "Multi Choice") {
+            $multi = multiChoiceQues::where('exid', $exam->id)->get();
+            return view('admin.exam.view-multi-choice', compact('exam', 'multi'));
+        } else {
+            // $ques = Question::Where('exid', $exam->id)->with('qset')->get();
+            // return view('admin.exam.view', compact('exam', 'ques'));
+            $ques = Mquestion::Where('exid', $exam->id)->get();
+            return view('admin.exam.view', compact('exam', 'ques'));
+        }
     }
 
     public function delete(Request $req)
     {
-        $status = Exam::Where('id', $req->id)->first()->delete();
-        if ($status) {
-            return ResMsg::success('Deleted !');
+        $exam = Exam::Where('id', $req->id)->first();
+        if ($exam->question_type == "Multi Choice") {
+            $status = $exam->delete();
+            $status = multiChoiceQues::Where('exid', $req->id)->delete();
+            if ($status) {
+                return ResMsg::success('Deleted !');
+            } else {
+                return ResMsg::error();
+            }
         } else {
-            return ResMsg::error();
+            $status = $exam->delete();
+            $status = Question::Where('exid', $req->id)->delete();
+            $status = Queset::Where('exid', $req->id)->delete();
+            if ($status) {
+                return ResMsg::success('Deleted !');
+            } else {
+                return ResMsg::error();
+            }
         }
     }
     public function edit(Request $req)
     {
         $exam = Exam::Where('id', $req->id)->first();
-        return view('admin.exam.edit', compact('exam'));
+        if ($exam->question_type == "Multi Choice") {
+            return view('admin.exam.edit', compact('exam'));
+        } else {
+            return view('admin.exam.edit', compact('exam'));
+        }
     }
 
     public function update(Request $req)

@@ -2,6 +2,11 @@
 @section('title')
     <title>Star Kid Academy</title>
 @endsection
+@section('style')
+    <link rel="stylesheet" href="{{ url('public/vendor/laraberg/css/laraberg.css') }}">
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+@endsection
 @section('page-title')
     <h5 id="page-title" class="card-title text-center"></h5>
 @endsection
@@ -12,27 +17,56 @@
         <!--  Card -->
         <div class="card info-card sales-card p-5">
             <div class="card-body">
-                <h3 class="text-center">Add Questions </h3>
-                <form action="{{ url('/admin/quset/update') }}" method="POST">
+                <h3 class="text-center">Update Question </h3>
+                <form action="{{ route('admin.question.update') }}" method="POST">
                     @csrf
 
-                    <input type="text" name="qid" value="{{ $ques->id }}" hidden>
-
-                    <div class="row">
-                        <div class="mb-3">
-                            <label class="form-label">Num of Rows</label>
-                            <input id="rows" type="text" name="num_of_rows" class="form-control"
-                                placeholder="Num of Rows" required>
+                    @if (Session::has('success'))
+                        <div class="row justify-content-end">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span> {!! Session::get('success') !!}</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
                         </div>
+                        {{ Session::forget('success') }}
+                    @endif
+                    @if (Session::has('error'))
+                        <div class="row justify-content-end">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span> {!! Session::get('error') !!}</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                        {{ Session::forget('error') }}
+                    @endif
 
-
-
+                    <input type="text" name="id" value="{{ $ques->id }}" hidden>
+                    <div class="row mb-3">
+                        <label class="mb-2">Question</label>
+                        <textarea id="question" name="question">{!! $ques->question !!}</textarea>
+                        @error('question')
+                            <span class="text-danger">* {{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="row mb-3">
+                        <label class="form-label">Answer</label>
+                        <input type="text" name="answer" value="{{ $ques->answer }}" class="form-control"
+                            placeholder="Answer" required>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="mb-2">Notes</label>
+                        <textarea class="form-control" name="notes" rows="5">{{ $ques->notes }}</textarea>
+                        @error('notes')
+                            <span class="text-danger">* {{ $message }}</span>
+                        @enderror
                     </div>
 
-                    <div class="text-center mt-3">
-
-                        <button id="btnGenerate" type="button" class="btn btn-primary w-25"><b>Generate</b></button>
-                        {{-- <button id="btnSubmit" type="submit" class="btn btn-primary w-25"><b>Submit</b></button> --}}
+                    <div class="text-center mt-5">
+                        {{--
+                        <button id="btnGenerate" type="button" class="btn btn-primary w-25"><b>Generate</b></button> --}}
+                        <button type="submit" class="btn btn-primary w-25"><b>Submit</b></button>
                     </div>
 
                     <div id="digits" class="row mt-5">
@@ -59,6 +93,23 @@
     <script src="{{ url('assets/js/speech.js') }}"></script>
     <script src="{{ url('assets/js/index.js') }}"></script>
     <script src="{{ url('assets/js/service.js') }}"></script>
+    <script src="{{ url('public/vendor/laraberg/js/laraberg.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            Laraberg.init('question')
+            $('.alert').alert();
+            setTimeout(() => {
+                $('.alert').alert('close')
+            }, 3000)
+
+            $('input:radio[name="answer"]').change(function() {
+
+                let val = $(this).parent().find("input[type=text]").val()
+                $(this).val(val)
+                // alert(val);
+            });
+        })
+    </script>
     <script>
         let api = new ApiService();
         let input = "";
@@ -91,25 +142,25 @@
         });
 
         // getClasses(api.url())
-        // $('#frm').submit(function(e) {
-        //     e.preventDefault();
-        //     $("#btnSubmit").html(
-        //         `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Answer</b>`
-        //     );
-        //     let req = api.setFormData(api.url() + "/admin/quset/update", this);
-        //     $("#btnSubmit").attr("disabled", true);
-        //     req.then((res) => {
+        $('#frm').submit(function(e) {
+            e.preventDefault();
+            $("#btnSubmit").html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Answer</b>`
+            );
+            let req = api.setFormData(api.url() + "/admin/question/create", this);
+            $("#btnSubmit").attr("disabled", true);
+            req.then((res) => {
 
-        //         const rs = JSON.parse(res);
-        //         if (rs.status == true) {
-        //             alert(rs.message);
-        //             location.reload();
-        //         } else {
-        //             alert(rs.message);
-        //             location.reload();
-        //         }
-        //     });
-        // });
+                const rs = JSON.parse(res);
+                if (rs.status == true) {
+                    alert(rs.message);
+                    location.reload();
+                } else {
+                    alert(rs.message);
+                    location.reload();
+                }
+            });
+        });
 
         function getClasses(url) {
 

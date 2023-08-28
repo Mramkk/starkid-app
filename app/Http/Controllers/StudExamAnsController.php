@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helper\ResMsg;
 use App\Models\Exam;
+use App\Models\Mquestion;
 use App\Models\multiChoiceQues;
 use App\Models\Question;
 use App\Models\StudExamAns;
@@ -49,7 +50,7 @@ class StudExamAnsController extends Controller
         } else {
             $status = StudExamAns::Where('uid', Auth()->user()->id)->Where('qid', $req->qid)->Where('exid', $req->exid)->first();
             if ($status != null) {
-                $qu = Question::Where('id', $req->qid)->Where('exid', $req->exid)->first();
+                $qu = Mquestion::Where('id', $req->qid)->Where('exid', $req->exid)->first();
                 $stud =  StudExamAns::Where('uid', Auth()->user()->id)->Where('qid', $req->qid)->Where('exid', $req->exid)->first();
                 $stud->uid = Auth()->user()->id;
                 $stud->exid = $req->exid;
@@ -63,7 +64,7 @@ class StudExamAnsController extends Controller
                     return  ResMsg::error();
                 }
             } else {
-                $qu = Question::Where('id', $req->qid)->Where('exid', $req->exid)->first();
+                $qu = Mquestion::Where('id', $req->qid)->Where('exid', $req->exid)->first();
                 $stud = new StudExamAns();
                 $stud->uid = Auth()->user()->id;
                 $stud->exid = $req->exid;

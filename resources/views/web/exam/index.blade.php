@@ -61,6 +61,8 @@
     <script src="{{ url('assets/js/index.js') }}"></script>
     <script src="{{ url('assets/js/service.js') }}"></script>
     <script>
+        // sessionStorage.removeItem("sec");
+        sessionStorage.removeItem("mainSec");
         sessionStorage.removeItem("sec");
     </script>
 @endsection

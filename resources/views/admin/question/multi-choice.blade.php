@@ -17,7 +17,7 @@
         <!--  Card -->
         <div class="card info-card sales-card p-5">
             <div class="card-body">
-                <h3 class="text-center">Add Multi-Choice Questions </h3>
+                <h3 class="text-center">Add MCQ </h3>
                 <form action="{{ route('admin.mcq.save') }}" method="POST">
                     @csrf
 
@@ -55,34 +55,34 @@
 
                     <div class="row mb-3">
                         <div class="col-md-3">
-                            <label class="mb-2 me-3">Choice (1)</label>
+                            <label class="mb-2 me-3">Option (1)</label>
                             <input class="form-check-input" type="radio" name="answer">
-                            <input type="text" class="form-control" name="choice_1">
-                            @error('choice_1')
+                            <input type="text" class="form-control" name="option_1">
+                            @error('option_1')
                                 <span class="text-danger">* {{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-3">
-                            <label class="mb-2 me-3">Choice (2)</label>
+                            <label class="mb-2 me-3">Option (2)</label>
                             <input class="form-check-input" type="radio" name="answer">
-                            <input type="text" class="form-control" name="choice_2">
-                            @error('choice_2')
+                            <input type="text" class="form-control" name="option_2">
+                            @error('option_2')
                                 <span class="text-danger">* {{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-3">
-                            <label class="mb-2 me-3">Choice (3)</label>
+                            <label class="mb-2 me-3">Option (3)</label>
                             <input class="form-check-input" type="radio" name="answer">
-                            <input type="text" class="form-control" name="choice_3">
-                            @error('choice_3')
+                            <input type="text" class="form-control" name="option_3">
+                            @error('option_3')
                                 <span class="text-danger">* {{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-3">
-                            <label class="mb-2 me-3">Choice (4)</label>
+                            <label class="mb-2 me-3">Option (4)</label>
                             <input class="form-check-input" type="radio" name="answer">
-                            <input type="text" class="form-control" name="choice_4">
-                            @error('choice_4')
+                            <input type="text" class="form-control" name="option_4">
+                            @error('option_4')
                                 <span class="text-danger">* {{ $message }}</span>
                             @enderror
                         </div>

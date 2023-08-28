@@ -41,7 +41,8 @@
 
                             </div>
                             <p class="text-primary fw-bold">{{ $item->title }}</p>
-                            <p class="fw-bold">({{ $item->question_type }})</p>
+
+                            <p class="fw-bold"> {{ $item->type }} ({{ $item->question_type }})</p>
                             <p class="fw-bold">({{ $item->class }})</p>
                             <div class="d-flex justify-content-center mt-1">
                                 <a href="{{ url('admin/exam/view') . '/' . $item->id }}" class="btn btn-link">View</a>

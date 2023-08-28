@@ -87,68 +87,68 @@
                     <div class="row mt-5 mb-5">
                         <hr>
                         <div class="col-md-3">
-                            <label class="mb-2 me-3"><span class="me-2">(A)</span> {{ $multi->first()->choice_1 }}</label>
+                            <label class="mb-2 me-3"><span class="me-2">(A)</span> {{ $multi->first()->option_1 }}</label>
                             @if (is_null($studAns))
                                 <input class="form-check-input" type="radio" name="uans"
-                                    value="{{ $multi->first()->choice_1 }}">
+                                    value="{{ $multi->first()->option_1 }}">
                             @else
-                                @if ($multi->first()->choice_1 == $studAns->uans)
+                                @if ($multi->first()->option_1 == $studAns->uans)
                                     <input class="form-check-input" type="radio" name="uans"
-                                        value="{{ $multi->first()->choice_1 }}" checked>
+                                        value="{{ $multi->first()->option_1 }}" checked>
                                 @else
                                     <input class="form-check-input" type="radio" name="uans"
-                                        value="{{ $multi->first()->choice_1 }}">
+                                        value="{{ $multi->first()->option_1 }}">
                                 @endif
                             @endif
                         </div>
 
                         <div class="col-md-3">
                             <label class="mb-2 me-3"><span class="me-2">(B)</span>
-                                {{ $multi->first()->choice_2 }}</label>
+                                {{ $multi->first()->option_2 }}</label>
                             @if (is_null($studAns))
                                 <input class="form-check-input" type="radio" name="uans"
-                                    value="{{ $multi->first()->choice_2 }}">
+                                    value="{{ $multi->first()->option_2 }}">
                             @else
-                                @if ($multi->first()->choice_2 == $studAns->uans)
+                                @if ($multi->first()->option_2 == $studAns->uans)
                                     <input class="form-check-input" type="radio" name="uans"
-                                        {{ $multi->first()->choice_2 }} checked>
+                                        {{ $multi->first()->option_2 }} checked>
                                 @else
                                     <input class="form-check-input" type="radio" name="uans"
-                                        value="{{ $multi->first()->choice_2 }}">
+                                        value="{{ $multi->first()->option_2 }}">
                                 @endif
                             @endif
                         </div>
 
                         <div class="col-md-3">
                             <label class="mb-2 me-3"><span class="me-2">(C)</span>
-                                {{ $multi->first()->choice_3 }}</label>
+                                {{ $multi->first()->option_3 }}</label>
                             @if (is_null($studAns))
                                 <input class="form-check-input" type="radio" name="uans"
-                                    value="{{ $multi->first()->choice_3 }}">
+                                    value="{{ $multi->first()->option_3 }}">
                             @else
-                                @if ($multi->first()->choice_3 == $studAns->uans)
+                                @if ($multi->first()->option_3 == $studAns->uans)
                                     <input class="form-check-input" type="radio" name="uans"
-                                        value="{{ $multi->first()->choice_3 }}" checked>
+                                        value="{{ $multi->first()->option_3 }}" checked>
                                 @else
                                     <input class="form-check-input" type="radio" name="uans"
-                                        value="{{ $multi->first()->choice_3 }}">
+                                        value="{{ $multi->first()->option_3 }}">
                                 @endif
                             @endif
                         </div>
 
                         <div class="col-md-3">
                             <label class="mb-2 me-3"><span class="me-2">(D)</span>
-                                {{ $multi->first()->choice_4 }}</label>
+                                {{ $multi->first()->option_4 }}</label>
                             @if (is_null($studAns))
                                 <input class="form-check-input" type="radio" name="uans"
-                                    value="{{ $multi->first()->choice_4 }}">
+                                    value="{{ $multi->first()->option_4 }}">
                             @else
-                                @if ($multi->first()->choice_4 == $studAns->uans)
+                                @if ($multi->first()->option_4 == $studAns->uans)
                                     <input class="form-check-input" type="radio" name="uans"
-                                        value="{{ $multi->first()->choice_4 }}" checked>
+                                        value="{{ $multi->first()->option_4 }}" checked>
                                 @else
                                     <input class="form-check-input" type="radio" name="uans"
-                                        value="{{ $multi->first()->choice_4 }}">
+                                        value="{{ $multi->first()->option_4 }}">
                                 @endif
                             @endif
 
@@ -161,7 +161,7 @@
 
                     </div> --}}
 
-                    {{ $multi->links('vendor.pagination.custom') }}
+                    {{ $multi->links('vendor.pagination.multi') }}
 
                 </div>
             </div>
@@ -234,7 +234,7 @@
         let mainSeconds = 0;
 
         let sec = sessionStorage.getItem("sec");
-        let mainSce = sessionStorage.getItem("mainSce");
+        let mainSce = sessionStorage.getItem("mainSec");
 
         if (sec != null) {
             seconds += parseInt(sec);
@@ -247,7 +247,7 @@
         function myTimer() {
             seconds += 1;
             mainSeconds += 1;
-            sessionStorage.setItem("mainSce", mainSeconds);
+            sessionStorage.setItem("mainSec", mainSeconds);
             sessionStorage.setItem("sec", seconds);
             let min = Math.floor(mainSeconds / 60);
             let hours = Math.floor(min / 60);
@@ -265,7 +265,16 @@
 
 
         $(document).ready(function() {
-            $('#myModal').modal('toggle');
+            let start = sessionStorage.getItem('startmcq');
+            if (start == null) {
+                sessionStorage.setItem('startmcq', true)
+                $('#myModal').modal('toggle');
+            } else {
+                if (start != "true") {
+                    $('#myModal').modal('toggle');
+                }
+            }
+
             $("button[name='start']").click(function() {
                 myInterval = setInterval(myTimer, 1000);
 

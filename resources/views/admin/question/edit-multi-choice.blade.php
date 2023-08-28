@@ -17,8 +17,8 @@
         <!--  Card -->
         <div class="card info-card sales-card p-5">
             <div class="card-body">
-                <h3 class="text-center">Add Question </h3>
-                <form action="{{ route('admin.question.save') }}" method="POST">
+                <h3 class="text-center">Update MCQ </h3>
+                <form action="{{ route('admin.mcq.update') }}" method="POST">
                     @csrf
 
                     @if (Session::has('success'))
@@ -42,22 +42,66 @@
                         {{ Session::forget('error') }}
                     @endif
 
-                    <input type="text" name="exid" value="{{ $exam->id }}" hidden>
+
+                    <input type="text" name="id" value="{{ $multi->id }}" hidden>
+
+
                     <div class="row mb-3">
                         <label class="mb-2">Question</label>
-                        <textarea id="question" name="question"></textarea>
+                        <textarea id="question" name="question">{{ $multi->question }}</textarea>
                         @error('question')
                             <span class="text-danger">* {{ $message }}</span>
                         @enderror
                     </div>
+
                     <div class="row mb-3">
-                        <label class="form-label">Answer</label>
-                        <input id="rows" type="text" name="answer" class="form-control" placeholder="Answer"
-                            required>
+                        <div class="col-md-3">
+                            <label class="mb-2 me-3">Option (1)</label>
+                            <input class="form-check-input" type="radio" name="answer"
+                                {{ $multi->option_1 == $multi->answer ? 'checked' : '' }}>
+                            <input type="text" class="form-control" name="option_1" value="{{ $multi->option_1 }}"
+                                value="{{ $multi->option_1 }}">
+                            @error('option_1')
+                                <span class="text-danger">* {{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <label class="mb-2 me-3">Option (2)</label>
+                            <input class="form-check-input" type="radio" name="answer"
+                                {{ $multi->option_2 == $multi->answer ? 'checked' : '' }} value="{{ $multi->option_2 }}">
+                            <input type="text" class="form-control" name="option_2" value="{{ $multi->option_2 }}">
+                            @error('option_2')
+                                <span class="text-danger">* {{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <label class="mb-2 me-3">Option (3)</label>
+                            <input class="form-check-input" type="radio" name="answer"
+                                {{ $multi->option_3 == $multi->answer ? 'checked' : '' }} value="{{ $multi->option_3 }}">
+                            <input type="text" class="form-control" name="option_3" value="{{ $multi->option_3 }}">
+                            @error('option_3')
+                                <span class="text-danger">* {{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <label class="mb-2 me-3">Option (4)</label>
+                            <input class="form-check-input" type="radio" name="answer"
+                                {{ $multi->option_4 == $multi->answer ? 'checked' : '' }} value="{{ $multi->option_4 }}">
+                            <input type="text" class="form-control" name="option_4" value="{{ $multi->option_4 }}">
+                            @error('option_4')
+                                <span class="text-danger">* {{ $message }}</span>
+                            @enderror
+                        </div>
+                        @error('answer')
+                            <span class="text-danger text-center mt-3">* {{ $message }}</span>
+                        @enderror
                     </div>
+
+
+
                     <div class="row mb-3">
                         <label class="mb-2">Notes</label>
-                        <textarea class="form-control" name="notes" rows="5"></textarea>
+                        <textarea class="form-control" name="notes" rows="5">{{ $multi->notes }}</textarea>
                         @error('notes')
                             <span class="text-danger">* {{ $message }}</span>
                         @enderror

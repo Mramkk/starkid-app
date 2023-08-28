@@ -1,5 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\Exam\AdminExamController;
+use App\Http\Controllers\Admin\Question\AdminQuestionController;
+use App\Http\Controllers\Admin\Quset\AdminQusetController;
+use App\Http\Controllers\Admin\Result\AdminResultController;
+use App\Http\Controllers\Admin\User\UserController;
+
+//
+
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
@@ -58,4 +66,46 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('admin.logout');
+});
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth:admin', 'verified'])->name('admin.dashboard');
+
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    // exam
+
+    Route::get('/exam', [AdminExamController::class, 'index']);
+    Route::get('/exam/create', [AdminExamController::class, 'createExamIndex'])->name('createExamIndex');
+    Route::get('/exam/{slug}', [AdminExamController::class, 'exam']);
+    Route::get('/exam/view/{id}', [AdminExamController::class, 'view']);
+    Route::get('/exam/edit/{id}', [AdminExamController::class, 'edit']);
+    Route::post('/exam/edit', [AdminExamController::class, 'update']);
+    Route::post('/exam/delete', [AdminExamController::class, 'delete']);
+    Route::post('/exam/create', [AdminExamController::class, 'createExam']);
+
+    //  question
+    Route::get('/question/{id}', [QuestionController::class, 'byExamId']);
+    // user
+    Route::get('student', [UserController::class, 'userList'])->name('admin.student');
+    Route::get('student/{id}', [UserController::class, 'details']);
+    Route::post('student/status', [UserController::class, 'status']);
+    // class
+    Route::get('/class', [UserController::class, 'classList']);
+
+    // retult
+    Route::get('/result', [AdminResultController::class, 'index'])->name('admin.result.index');
+    Route::get('/result/{id}', [AdminResultController::class, 'exams']);
+    Route::get('/result/{uid}/{exid}', [AdminResultController::class, 'result']);
+
+    Route::controller(AdminQuestionController::class)->group(function () {
+        Route::get('/exam/{exid}/question', 'index');
+        Route::get('question/{exid}/{qid}', 'edit');
+        Route::post('/question/create', 'save')->name('admin.question.save');
+        Route::post('/question/update', 'update')->name('admin.question.update');
+        Route::post('/question/mcq/save', 'saveMcq')->name('admin.mcq.save');
+        Route::post('/question/mcq/update', 'updateMcq')->name('admin.mcq.update');
+
+        // Route::post('quset/update', 'update');
+    });
 });

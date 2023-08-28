@@ -42,17 +42,19 @@
                         <thead>
                             <tr>
                                 <th>Slno</th>
-                                <th>Answer</th>
                                 <th>Question</th>
-                                <th>Actions</th>
-
-
+                                <th>Option (A)</th>
+                                <th>Option (B)</th>
+                                <th>Option (C)</th>
+                                <th>Option (D)</th>
+                                <th>Answer</th>
+                                <th>Action</th>
 
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($ques as $item)
+                            @foreach ($multi as $item)
                                 <tr>
                                     <td>
                                         {{ $item->slno }}
@@ -61,15 +63,22 @@
                                         {!! $item->question !!}
                                     </td>
                                     <td>
+                                        {{ $item->option_1 }}
+                                    </td>
+                                    <td>
+                                        {{ $item->option_2 }}
+                                    </td>
+                                    <td>
+                                        {{ $item->option_3 }}
+                                    </td>
+                                    <td>
+                                        {{ $item->option_4 }}
+                                    </td>
+                                    <td>
                                         {{ $item->answer }}
                                     </td>
-
-
-
                                     <td><a class="btn btn-info text-light shadow-lg"
                                             href="{{ url('admin/question/') . '/' . $exam->id . '/' . $item->id }}">Edit</a>
-
-                                            
                                     </td>
 
 

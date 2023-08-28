@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exam;
+use App\Models\Mquestion;
 use App\Models\multiChoiceQues;
 use App\Models\Queset;
 use App\Models\Question;
@@ -71,6 +72,24 @@ class ExamController extends Controller
                 ->get();
             return view('web.exam.question-multi-choice', compact('exam', 'multi', 'qcount', 'anscount', 'studAns', 'datalist'));
         } else {
+
+            $mques =  Mquestion::Where('exid', $req->id)->paginate(1);
+            $qcount =  Mquestion::Where('exid', $req->id)->count();
+            $anscount = StudExamAns::Where('exid', $req->id)->Where('uans', '!=', '0')->get()->count();
+            $studAns = StudExamAns::Where('exid', $req->id)->Where('qid', $mques->first()->id)->first();
+            $datalist = DB::table('mquestions')
+                ->select('*')
+                ->leftJoin('stud_exam_ans', function ($join) {
+                    $join->on('mquestions.exid', '=', 'stud_exam_ans.exid')
+                        ->on('mquestions.id', '=', 'stud_exam_ans.qid');
+                })
+                ->where('mquestions.exid', $req->id)
+                ->orderBy('mquestions.id', 'ASC')
+                ->get();
+
+            return view('web.exam.question', compact('exam', 'mques', 'qcount', 'anscount', 'studAns', 'datalist'));
+
+
             $ques =  Question::Where('exid', $req->id)->first();
             if ($ques == null) {
                 return '<script>
@@ -81,27 +100,29 @@ class ExamController extends Controller
                 </script>';
             } else {
 
-                $exam = Exam::Where('id', $req->id)->first();
-                $ques = Question::Where('exid', $req->id)->paginate(1);
-                $qset = Queset::Where('exid', $req->id)->Where('qid', $ques->first()->id)->get();
-                $studAns = StudExamAns::Where('exid', $req->id)->Where('qid', $ques->first()->id)->first();
-                $count = StudExamAns::Where('exid', $req->id)->Where('uans', '!=', '0')->get()->count();
-                $datalist = DB::table('questions')
+                // $exam = Exam::Where('id', $req->id)->first();
+                // $ques = Question::Where('exid', $req->id)->paginate(1);
+                // $qset = Queset::Where('exid', $req->id)->Where('qid', $ques->first()->id)->get();
+                // $studAns = StudExamAns::Where('exid', $req->id)->Where('qid', $ques->first()->id)->first();
+                // $count = StudExamAns::Where('exid', $req->id)->Where('uans', '!=', '0')->get()->count();
+                // $datalist = DB::table('questions')
 
-                    ->select('*')
-                    ->leftJoin('stud_exam_ans', function ($join) {
-                        $join->on('questions.exid', '=', 'stud_exam_ans.exid')
-                            ->on('questions.id', '=', 'stud_exam_ans.qid');
-                    })
-                    ->where('questions.exid', $req->id)
-                    ->orderBy('questions.id', 'ASC')
-                    ->get();
-
-
+                //     ->select('*')
+                //     ->leftJoin('stud_exam_ans', function ($join) {
+                //         $join->on('questions.exid', '=', 'stud_exam_ans.exid')
+                //             ->on('questions.id', '=', 'stud_exam_ans.qid');
+                //     })
+                //     ->where('questions.exid', $req->id)
+                //     ->orderBy('questions.id', 'ASC')
+                //     ->get();
 
 
 
-                return view('web.exam.question', compact('exam', 'ques', 'datalist', 'studAns', 'count', 'qset'));
+
+
+                // return view('web.exam.question', compact('exam', 'ques', 'datalist', 'studAns', 'count', 'qset'));
+
+
             }
         }
     }
