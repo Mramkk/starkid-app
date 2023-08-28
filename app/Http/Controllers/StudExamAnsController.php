@@ -56,7 +56,7 @@ class StudExamAnsController extends Controller
                 $stud->exid = $req->exid;
                 $stud->qid = $req->qid;
                 $stud->uans = $req->uans;
-                $stud->ans_check = $qu->ans == $req->uans ? '1' : '0';
+                $stud->ans_check = $qu->answer == $req->uans ? '1' : '0';
                 $status = $stud->update();
                 if ($status) {
                     return  ResMsg::success("Updated Successfully !");
@@ -70,7 +70,7 @@ class StudExamAnsController extends Controller
                 $stud->exid = $req->exid;
                 $stud->qid = $req->qid;
                 $stud->uans = $req->uans;
-                $stud->ans_check = $qu->ans == $req->uans ? '1' : '0';
+                $stud->ans_check = $qu->answer == $req->uans ? '1' : '0';
                 $status = $stud->save();
                 if ($status) {
                     return  ResMsg::success("Submited Successfully !");

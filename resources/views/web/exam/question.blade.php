@@ -150,6 +150,7 @@
 
             </div>
         </div>
+
     </div>
 @endsection
 @section('scripts')
@@ -163,6 +164,8 @@
         let seconds = 0;
         let mainSeconds = 0;
 
+
+
         let sec = sessionStorage.getItem("sec");
         let mainSec = sessionStorage.getItem("mainSec");
 
@@ -173,14 +176,13 @@
             mainSeconds += parseInt(mainSec);
         }
 
-
         function myTimer() {
             seconds += 1;
             mainSeconds += 1;
+            console.log(mainSeconds);
             sessionStorage.setItem("mainSec", mainSeconds);
             sessionStorage.setItem("sec", seconds);
-            console.log('main :' + mainSeconds);
-            console.log('sec :' + seconds);
+
             let min = Math.floor(mainSeconds / 60);
             let hours = Math.floor(min / 60);
             $('#txtime').text(hours.toString().padStart(2, '0') + " : " + min.toString().padStart(2, '0') + " : " +

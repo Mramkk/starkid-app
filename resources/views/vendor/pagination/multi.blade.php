@@ -70,12 +70,12 @@
         let slash = url.lastIndexOf('/');
         let exid = url.substring(slash + 1);
 
-        var secound = $('#txtime').text().replace('Sec', '');
+
         var data = {
             "_token": "{{ csrf_token() }}",
             "exid": exid,
             "qid": $('#txtqid').val(),
-            "second": secound,
+            "seconds": mainSeconds,
             "uans": uans,
 
         };

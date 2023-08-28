@@ -47,12 +47,12 @@
         let slash = url.lastIndexOf('/');
         let exid = url.substring(slash + 1);
 
-        var secound = $('#txtime').text().replace('Sec', '');
+        // var secound = $('#txtime').text().replace('Sec', '');
         var data = {
             "_token": "{{ csrf_token() }}",
             "exid": exid,
-            "qid": $('#txtqid').val(),
-            "second": secound,
+            "qid": id,
+            "seconds": mainSeconds,
             "uans": $('input:text[name="uans"]').val(),
 
         };
@@ -156,6 +156,7 @@
             "exid": exid,
             "qid": $('#txtqid').val(),
             "uans": $('input:text[name="uans"]').val(),
+
 
         };
         let req = api.setData(api.url() + "/student/ans", data);
