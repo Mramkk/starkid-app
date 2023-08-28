@@ -233,22 +233,25 @@
         let seconds = 0;
         let mainSeconds = 0;
 
+
+
         let sec = sessionStorage.getItem("sec");
-        let mainSce = sessionStorage.getItem("mainSec");
+        let mainSec = sessionStorage.getItem("mainSec");
 
         if (sec != null) {
             seconds += parseInt(sec);
         }
-        if (mainSce != null) {
-            mainSce += parseInt(mainSce);
+        if (mainSec != null) {
+            mainSeconds += parseInt(mainSec);
         }
-
 
         function myTimer() {
             seconds += 1;
             mainSeconds += 1;
+            console.log(mainSeconds);
             sessionStorage.setItem("mainSec", mainSeconds);
             sessionStorage.setItem("sec", seconds);
+
             let min = Math.floor(mainSeconds / 60);
             let hours = Math.floor(min / 60);
             $('#txtime').text(hours.toString().padStart(2, '0') + " : " + min.toString().padStart(2, '0') + " : " +
@@ -270,6 +273,7 @@
                 sessionStorage.setItem('startmcq', true)
                 $('#myModal').modal('toggle');
             } else {
+                myInterval = setInterval(myTimer, 1000);
                 if (start != "true") {
                     $('#myModal').modal('toggle');
                 }
