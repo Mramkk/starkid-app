@@ -155,13 +155,12 @@
                         </div>
 
                     </div>
-                    {{-- <div class="col-md-3 mt-5">
-                        <input type="text" id="txtuans" name="uans" value="{{ $studAns->uans ?? '' }}"
-                            class="form-control" placeholder="Answer" required>
+                    @if ($exam->type == 'Practice Exam')
+                        {{ $mques->links('vendor.pagination.multi-practice') }}
+                    @else
+                        {{ $multi->links('vendor.pagination.multi') }}
+                    @endif
 
-                    </div> --}}
-
-                    {{ $multi->links('vendor.pagination.multi') }}
 
                 </div>
             </div>
@@ -211,7 +210,6 @@
                         </div>
                         <div class="col-md-6">
                             <a href="{{ url('/') }}" class="btn btn-primary fw-bold w-100">Back</a>
-
                         </div>
                     </div>
 

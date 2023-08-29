@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\PracticeExamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResultController;
@@ -106,7 +107,8 @@ Route::get('/exam/list/{slug}', [ExamController::class, 'list']);
 Route::get('/exam/{id}', [ExamController::class, 'examById']);
 // exam
 Route::post('/result', [ResultController::class, 'store']);
-
+Route::post('/practice/result', [PracticeExamController::class, 'store']);
+Route::get('/practice/result/{uid}/{exid}', [PracticeExamController::class, 'result']);
 
 
 

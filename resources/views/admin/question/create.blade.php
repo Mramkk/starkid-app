@@ -17,7 +17,7 @@
         <!--  Card -->
         <div class="card info-card sales-card p-5">
             <div class="card-body">
-                <h3 class="text-center">Add Question </h3>
+                <h3 class="text-center">Add {{ $exam->type }} Question </h3>
                 <form action="{{ route('admin.question.save') }}" method="POST">
                     @csrf
 

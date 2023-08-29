@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html>
+
+
+<head>
+
+</head>
+
+
+
 @if ($paginator->hasPages())
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-between mt-5">
@@ -35,11 +43,25 @@
 <script src="{{ url('assets/js/service.js') }}"></script>
 <script>
     let api = new ApiService();
+    let uans = 0;
+    $(document).ready(function() {
+        // let radio = $('input:radio[name="uans"]').is(":checked");
+        var radio = $('input:radio[name="uans"]');
+        if (radio.filter(':checked').length == 1) {
+            uans = $(radio).val();
 
+        }
+        // uans = $(radio).val();
+        $('input:radio[name="uans"]').change(function() {
+            uans = $(this).val();
+            // alert($(this).val())
+            // let val = $(this).parent().find("input[type=text]").val()
+            // $(this).val(val)
 
+        });
+    })
 
     function submit(id) {
-
         $("#btnSubmit").html(
             `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submit`
         );
@@ -49,17 +71,15 @@
         let exid = url.substring(slash + 1);
 
 
-
-        var secound = $('#txtime').text().replace('Sec', '');
         var data = {
             "_token": "{{ csrf_token() }}",
             "exid": exid,
-            "qid": id,
+            "qid": $('#txtqid').val(),
             "seconds": mainSeconds,
-            "uans": $('input:text[name="uans"]').val()
+            "uans": uans,
 
         };
-        let req = api.setData(api.url() + "/result", data);
+        let req = api.setData(api.url() + "/practice/result", data);
         $("#btnSubmit").attr("disabled", true);
         req.then((res) => {
             if (res.status == true) {
@@ -158,8 +178,7 @@
             "_token": "{{ csrf_token() }}",
             "exid": exid,
             "qid": $('#txtqid').val(),
-            "uans": $('input:text[name="uans"]').val(),
-
+            "uans": uans,
 
         };
         let req = api.setData(api.url() + "/student/ans", data);

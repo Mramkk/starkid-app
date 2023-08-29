@@ -59,13 +59,13 @@
             "uans": $('input:text[name="uans"]').val()
 
         };
-        let req = api.setData(api.url() + "/result", data);
+        let req = api.setData(api.url() + "/practice/result", data);
         $("#btnSubmit").attr("disabled", true);
         req.then((res) => {
             if (res.status == true) {
                 alert(res.message);
                 // location.href = api.url() + "/result/" + exid;
-                location.href = api.url() + "/home";
+                location.href = api.url() + res.url;
             } else {
                 alert(res.message);
                 location.reload();

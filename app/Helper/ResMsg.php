@@ -84,6 +84,14 @@ class ResMsg
             "message" => $msg,
         ]);
     }
+    public static function successWithUrl($msg, $url)
+    {
+        return json_encode([
+            "status" => true,
+            "message" => $msg,
+            "url" => $url,
+        ]);
+    }
     public static function logout()
     {
         return json_encode([

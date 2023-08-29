@@ -29,6 +29,7 @@
                                 <option selected value="Exam">Exam</option>
                                 <option value="Vedic Math">Vedic Math</option>
                                 <option value="Practice Exam">Practice Exam</option>
+                                <option value="GK">GK</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -110,7 +111,7 @@
                 const rs = JSON.parse(res);
                 if (rs.status == true) {
                     alert(rs.message);
-                    location.reload();
+                    location.href = api.url() + "/admin/exam"
                 } else {
                     alert(rs.message);
                     location.reload();

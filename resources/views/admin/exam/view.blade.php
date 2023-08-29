@@ -69,7 +69,7 @@
                                     <td><a class="btn btn-info text-light shadow-lg"
                                             href="{{ url('admin/question/') . '/' . $exam->id . '/' . $item->id }}">Edit</a>
 
-                                            
+
                                     </td>
 
 

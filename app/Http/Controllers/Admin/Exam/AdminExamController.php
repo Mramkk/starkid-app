@@ -58,19 +58,28 @@ class AdminExamController extends Controller
     {
         $exam = Exam::Where('id', $req->id)->first();
         if ($exam->question_type == "Multi Choice") {
+
+            $mcq = multiChoiceQues::Where('exid', $req->id)->get();
+            if ($mcq != null) {
+                $status =  $mcq->delete();
+            }
             $status = $exam->delete();
-            $status = multiChoiceQues::Where('exid', $req->id)->delete();
             if ($status) {
-                return ResMsg::success('Deleted !');
+                return ResMsg::success('Deleted deleted successfully !');
             } else {
                 return ResMsg::error();
             }
         } else {
             $status = $exam->delete();
-            $status = Question::Where('exid', $req->id)->delete();
-            $status = Queset::Where('exid', $req->id)->delete();
+            $mq =  Mquestion::Where('exid', $req->id)->delete();
+            if ($mq != null) {
+                $status =  $mq->delete();
+            }
+
+
+
             if ($status) {
-                return ResMsg::success('Deleted !');
+                return ResMsg::success('Deleted deleted successfully !');
             } else {
                 return ResMsg::error();
             }

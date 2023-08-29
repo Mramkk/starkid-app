@@ -87,13 +87,17 @@
                             <p class="mt-5 fs-6">Notes : {{ $item->notes }}</p>
                         </div>
                     @endforeach
-                    <div class="col-md-3 mt-5">
+                    <div class="col-md-6 mt-5">
                         <input type="text" id="txtuans" name="uans" value="{{ $studAns->uans ?? '' }}"
                             class="form-control" placeholder="Answer" required>
 
                     </div>
+                    @if ($exam->type == 'Practice Exam')
+                        {{ $mques->links('vendor.pagination.custom-practice') }}
+                    @else
+                        {{ $mques->links('vendor.pagination.custom') }}
+                    @endif
 
-                    {{ $mques->links('vendor.pagination.custom') }}
 
                 </div>
             </div>
@@ -107,7 +111,8 @@
 
                         @foreach ($datalist as $item)
                             @if ($mques->first()->slno == $item->slno)
-                                <a onclick="numClick({{ $mques->first()->exid }},{{ $item->slno }})" style="width: 60px;"
+                                <a onclick="numClick({{ $mques->first()->exid }},{{ $item->slno }})"
+                                    style="width: 60px;"
                                     class="{{ $item->uans <= '0' ? 'btn btn-light mb-2 rounded-circle shadow-sm border border-5' : 'btn btn-success mb-2 rounded-circle shadow-sm border border-5' }}">{{ $item->slno }}</a>
                             @else
                                 <a onclick="numClick({{ $mques->first()->exid }},{{ $item->slno }})"
