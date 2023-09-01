@@ -61,6 +61,7 @@ class AdminPdfController extends Controller
         $obj->title = $req->title;
         $obj->class = $req->class;
         $status =  $obj->update();
+        // 
         if ($req->hasFile('file')) {
             $req->validate([
 
