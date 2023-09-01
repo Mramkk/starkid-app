@@ -40,6 +40,22 @@
         </div><!-- End Card -->
         <!--  Card -->
         <div class="col-xxl-4 col-md-4">
+            <a href="{{ route('admin.pdf.index') }}">
+
+                <div class="card info-card sales-card text-center">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center mt-3">
+
+                            <i class="bi bi-newspaper fs-1 text-danger"></i>
+
+                        </div>
+                        <h5 class="card-title text-primary">PDF</h5>
+                    </div>
+                </div>
+            </a>
+        </div><!-- End Card -->
+        <!--  Card -->
+        <div class="col-xxl-4 col-md-4">
             <a href="{{ url('/admin/exam') }}">
 
                 <div class="card info-card sales-card text-center">

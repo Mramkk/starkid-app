@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Question\AdminQuestionController;
 use App\Http\Controllers\Admin\Quset\AdminQusetController;
 use App\Http\Controllers\Admin\Result\AdminResultController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Admin\Pdf\AdminPdfController;
 
 //
 
@@ -105,7 +106,15 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::post('/question/update', 'update')->name('admin.question.update');
         Route::post('/question/mcq/save', 'saveMcq')->name('admin.mcq.save');
         Route::post('/question/mcq/update', 'updateMcq')->name('admin.mcq.update');
+    });
 
-        // Route::post('quset/update', 'update');
+    Route::controller(AdminPdfController::class)->group(function () {
+        Route::get('/pdf', 'index')->name('admin.pdf.index');
+        Route::get('/pdf/create', 'create')->name('admin.pdf.create');
+        Route::post('/pdf/save', 'save')->name('admin.pdf.save');
+        Route::get('/pdf/edit/{id}', 'edit');
+        Route::post('/pdf/update', 'update')->name('admin.pdf.update');
+        Route::post('/pdf/status', 'status')->name('admin.pdf.status');
+        Route::post('/pdf/delete', 'delete')->name('admin.pdf.delete');
     });
 });
