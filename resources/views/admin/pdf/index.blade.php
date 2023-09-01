@@ -24,7 +24,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <div class="row">
-                        PDF
+                        PDF Upload
                     </div>
                     <div class="row">
                         <a href="{{ route('admin.pdf.create') }}" class="btn btn-success">Add</a>
