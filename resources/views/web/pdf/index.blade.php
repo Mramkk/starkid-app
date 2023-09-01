@@ -9,7 +9,7 @@
 
 
     <div class="row">
-        <h4 class="text-center">PDF</h4>
+        <h4 class="text-center">PDF Upload</h4>
         <hr>
         <!-- Left side columns -->
         <!--  Card -->
