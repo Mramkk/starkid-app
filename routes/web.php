@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PracticeExamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
@@ -109,6 +110,14 @@ Route::get('/exam/{id}', [ExamController::class, 'examById']);
 Route::post('/result', [ResultController::class, 'store']);
 Route::post('/practice/result', [PracticeExamController::class, 'store']);
 Route::get('/practice/result/{uid}/{exid}', [PracticeExamController::class, 'result']);
+
+// pdf
+
+Route::controller(PdfController::class)->group(function () {
+    Route::get('/pdf', 'index')->name('web.pdf.index');
+   
+});
+
 
 
 

@@ -70,7 +70,8 @@
                                     <td>
                                         <a href="{{ url('/admin/pdf/edit') . '/' . $item->id }}"
                                             class="btn btn-outline-primary">Edit</a>
-                                        <a href="{{ route('admin.pdf.delete') }}" class="btn btn-outline-danger">Delete</a>
+                                        <a id="{{ $item->id }}" href="{{ route('admin.pdf.delete') }}"
+                                            onclick="itemDelete(this.id)" class="btn btn-outline-danger">Delete</a>
                                     </td>
 
                                 </tr>
@@ -107,6 +108,27 @@
                 "id": id
             };
             let req = api.setData("{{ route('admin.pdf.status') }}", data);
+            req.then((res) => {
+
+
+                if (res.status == true) {
+
+                    alert(res.message);
+                    location.reload();
+                } else {
+                    alert(res.message);
+                    location.reload();
+                }
+            });
+        }
+
+        function itemDelete(id) {
+
+            var data = {
+                "_token": "{{ csrf_token() }}",
+                "id": id
+            };
+            let req = api.setData("{{ route('admin.pdf.delete') }}", data);
             req.then((res) => {
 
 

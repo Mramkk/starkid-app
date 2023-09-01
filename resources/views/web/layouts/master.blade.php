@@ -118,6 +118,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('web.pdf.index') }}">
+
+                        <i class="bi bi-newspaper text-danger"></i>
+                        <span>PDF</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('exam') }}">
 
                         <i class="bi bi-newspaper text-danger"></i>

@@ -114,7 +114,7 @@
             $('#frm').submit(function(e) {
 
                 $("button[type='submit']").html(
-                    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Answer</b>`
+                    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Submit</b>`
                 );
 
             });

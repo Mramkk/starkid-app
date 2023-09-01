@@ -51,6 +51,7 @@ class AdminPdfController extends Controller
     public function update(Request $req)
     {
 
+
         $req->validate([
             'title' => 'required|string',
             'class' => 'required|string',
@@ -99,6 +100,20 @@ class AdminPdfController extends Controller
             } else {
                 return  ResMsg::error();
             }
+        }
+    }
+    public function delete(Request $req)
+    {
+        $obj = Pdf::Where('id', $req->id)->first();
+        if ($obj->file != null) {
+            unlink($obj->file);
+        }
+        $status = $obj->delete();
+        if ($status) {
+
+            return  ResMsg::success('Data deleted successfully ! ');
+        } else {
+            return  ResMsg::error();
         }
     }
 }

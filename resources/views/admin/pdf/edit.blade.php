@@ -96,7 +96,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">PDF file</label>
-                            <input class="form-control" name="file" type="file" value="{{ $data->file }}">
+                            <input class="form-control" name="file" type="file">
                             @error('file')
                                 <span class="text-danger">* {{ $message }}</span>
                             @enderror
@@ -136,21 +136,35 @@
                 $('.alert').alert('close')
             }, 3000)
 
+
+
             // const fileInput = document.querySelector('input[type="file"]');
-            // const myFile = new File([], '{{ $data->file }}');
+            // // const myFile = new File(['{{ $data->file ?? '' }}'], '{{ $data->file ?? '' }}');
+            // const myFile = new File(["myfile"], "{{ $data->file ?? '' }}", {
+            //     type: "application/pdf",
+            //     lastModified: new Date().getTime()
+            // });
             // const dataTransfer = new DataTransfer();
             // dataTransfer.items.add(myFile);
             // fileInput.files = dataTransfer.files;
+            // const myFile = new File(['myfile'], '{{ $data->file }}', {
+            //     type: "application/pdf"
+            // });
+            // const dataTransfer = new DataTransfer();
+            // dataTransfer.items.add(myFile);
+            // fileInput.files = dataTransfer.files;
+
 
             getClasses(api.url())
             $('#frm').submit(function(e) {
 
                 $("button[type='submit']").html(
-                    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Answer</b>`
+                    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Submit</b>`
                 );
 
             });
         })
+
 
 
         function getClasses(url) {
