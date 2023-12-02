@@ -37,7 +37,7 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
             <a href="{{ route('home') }}" class="logo d-flex align-items-center ms-3">
                 <img src="{{ url('assets/img/logo.png') }}" alt="">
-                <span class="d-none d-lg-block">Star Kid Academy</span>
+                <span class="d-none d-lg-block">Little Star Kid Academy</span>
             </a>
 
         </div><!-- End Logo -->
