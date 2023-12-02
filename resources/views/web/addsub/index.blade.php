@@ -262,10 +262,10 @@
             $('#txtcal').show();
             setTimeout(function() {
                 if (i % 2 == 0) {
-                    $("#txtcal").css("color", "#002233");
+                    $("#txtcal").css("color", "#6666ff");
                     $('#txtcal').html(nums[i]);
                 } else {
-                    $("#txtcal").css("color", "#006699");
+                    $("#txtcal").css("color", "#ff9933");
                     $('#txtcal').html(nums[i]);
                 }
 

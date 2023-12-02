@@ -63,10 +63,21 @@
                 </div>
                 <hr>
                 <p class="card-title text-center"> Calculations Solved by Student</p>
+                <form method="get">
+
+                    <div class="row justify-content-end mb-3">
+                        <div class="col-md-3">
+                            <input type="date" name="date" class="form-control"
+                                onchange="event.preventDefault();
+                            this.closest('form').submit();">
+                        </div>
+                    </div>
+                </form>
                 <div class="table-responsive mt-2">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Slno</th>
                                 <th>Date</th>
                                 <th>Operation</th>
@@ -82,6 +93,16 @@
                         <tbody>
                             @foreach ($cals as $key => $cal)
                                 <tr>
+                                    @if ($cal->cans == $cal->uans)
+                                        <td>
+                                            <i class="bi bi-check2 text-success fs-3"></i>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <i class="bi bi-x text-danger fs-2"></i>
+                                        </td>
+                                    @endif
+
                                     <td>
                                         {{ $key + 1 }}
                                     </td>
@@ -96,7 +117,8 @@
                                             {{ $cal->nums }}
                                         </div>
                                     </td>
-                                    <td>{{ $cal->uans }}</td>
+                                    <td>
+                                        {{ $cal->uans }}</td>
                                     <td>{{ $cal->second }}</td>
                                     <td>{{ $cal->cans }}</td>
 
@@ -110,7 +132,10 @@
 
                         </tbody>
                     </table>
-                    {{ $cals->links('vendor.pagination.bootstrap-5') }}
+                    @if (isset($req->date) == null)
+                        {{ $cals->links('vendor.pagination.bootstrap-5') }}
+                    @endif
+
 
                 </div>
 
@@ -129,4 +154,9 @@
 @section('scripts')
     <script src="{{ url('assets/js/speech.js') }}"></script>
     <script src="{{ url('assets/js/index.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+
+        });
+    </script>
 @endsection

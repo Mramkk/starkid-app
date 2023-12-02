@@ -181,7 +181,7 @@
                 let sec = $('#txtsecond').val();
                 numsm[0] = generateCalcMcant();
                 numsm[1] = generateCalcMPlier();
-              
+
                 $('#strcal').text(numsm[0] + " * " + numsm[1])
                 let len = numsm.length - 2;
 
@@ -284,10 +284,10 @@
             $('#txtcal').show();
             setTimeout(function() {
                 if (i % 2 == 0) {
-                    $("#txtcal").css("color", "#002233");
+                    $("#txtcal").css("color", "#6666ff");
                     $('#txtcal').html(nums[i]);
                 } else {
-                    $("#txtcal").css("color", "#006699");
+                    $("#txtcal").css("color", "#ff9933");
                     $('#txtcal').html(nums[i]);
                 }
 

@@ -29,6 +29,12 @@ class UserController extends Controller
     }
     public function details(Request $req)
     {
+        if ($req->date != null) {
+            $user = User::Where('id', $req->id)->first();
+            $cals =  Calculation::where('uid', $user->id)->whereDate('created_at', $req->date)->paginate(20);
+            $data = compact('user', 'cals', 'req');
+            return view('admin.student.details')->with($data);
+        }
 
         $user = User::Where('id', $req->id)->first();
         $cals =  Calculation::latest()->Where('uid', $user->id)->paginate(20);
